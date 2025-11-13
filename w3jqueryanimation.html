@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery Animation Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #box {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      background-color: lightblue;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-family: Arial, sans-serif;
+      border-radius: 15px;
+      transition: background-color 0.5s;
+    }
+
+    button {
+      position: absolute;
+      bottom: 40px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="box">Nise</div>
+  <button id="animateBtn">Animate</button>
+
+  <script>
+    $(document).ready(function() {
+      $("#animateBtn").click(function() {
+        let box = $("#box");
+
+        box.animate({
+          left: "200px",
+          top: "100px",
+          height: "250px",
+        }, 1000)
+        .css({
+          "background-color": "tomato",
+          "color": "white",
+          "font-family": "'Comic Sans MS', cursive"
+        })
+        .text("Nise Tapol")
+
+        .animate({
+          left: "-200px",
+          top: "-100px",
+          height: "200px"
+        }, 1000, function() {
+          box.css({
+            "background-color": "purple",
+            "font-family": "'Courier New', monospace"
+          });
+        })
+        .animate({
+          left: "0px",
+          top: "0px",
+          height: "150px"
+        }, 1000, function() {
+          box.css({
+            "background-color": "lightblue",
+            "color": "black",
+            "font-family": "Arial, sans-serif"
+          });
+          box.text("Nise");
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
