@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Variables Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .box {
+            background-color: white;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        h3 {
+            color: #4CAF50;
+            margin-top: 0;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            min-height: 20px;
+            border: 1px solid #ddd;
+            font-weight: bold;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px 0;
+            color: #555;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        #check {
+            background-color: #2196F3;
+        }
+        #check:hover {
+            background-color: #0b7dda;
+        }
+        .operators-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .operator-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Variables Calculator</h1>
+    
+    <!-- Box 1: Variables -->
+    <div class="box">
+        <h3>Storing Information with Variables</h3>
+        <button onclick="details()">Reveal My Data</button>
+        <div class="result" id="variableResult">Click to see what I stored in variables!</div>
+    </div>
+    
+    <!-- Box 2: Operators -->
+    <div class="box">
+        <h3>Math Made Easy with Operators</h3>
+        <div class="operators-grid">
+            <div class="operator-item">
+                <button onclick="displaySum()">Add Numbers</button>
+                <div class="result" id="demo1"></div>
+            </div>
+            
+            <div class="operator-item">
+                <button onclick="displaySub()">Subtract Numbers</button>
+                <div class="result" id="demo2"></div>
+            </div>
+            
+            <div class="operator-item">
+                <button onclick="displayMul()">Multiply Numbers</button>
+                <div class="result" id="demo3"></div>
+            </div>
+            
+            <div class="operator-item">
+                <button onclick="displayDiv()">Divide Numbers</button>
+                <div class="result" id="demo4"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Box 3: Number Checker -->
+    <div class="box">
+        <h3>Number Detective: Positive, Negative, or Zero?</h3>
+        <label for="input">Type any number you want to test:</label>
+        <input type="number" id="input" placeholder="Enter a number here...">
+        <br><br>
+        <button id="check">Analyze My Number</button>
+        <div class="result" id="result">Waiting For Your Number...</div>
+    </div>
+    
+    <script>
+        // Function to show variables
+        function details() {
+
+            let Name= "Niseta";
+            
+            
+            
+            document.getElementById("variableResult").textContent = 
+                "Name: " + Name;
+        }
+
+        // Arithmetic operations using variables and operators
+        let num1 = 6;
+        let num2 = 2;
+
+        // Addition
+        function displaySum() {
+            let result = num1 + num2;
+            document.getElementById("demo1").textContent = "Addition: " + result;
+        }
+
+        // Subtraction
+        function displaySub() {
+            let result = num1 - num2;
+            document.getElementById("demo2").textContent = "Subtraction: " + result;
+        }
+
+        // Multiplication
+        function displayMul() {
+            let result = num1 * num2;
+            document.getElementById("demo3").textContent = "Multiplication: " + result;
+        }
+
+        // Division
+        function displayDiv() {
+            let result = num1 / num2;
+            document.getElementById("demo4").textContent = "Division: " + result;
+        }
+
+        // Check if number is positive, negative, or zero
+        document.getElementById("check").addEventListener("click", function() {
+            let input = document.getElementById("input").value;
+            let num = parseFloat(input);
+            let result = document.getElementById("result");
+            
+            if (isNaN(num) || input === "") {
+                result.textContent = "Please enter a valid number!";
+                result.style.color = "red";
+            } else if (num > 0) {
+                result.textContent = num + " is Positive";
+                result.style.color = "green";
+            } else if (num < 0) {
+                result.textContent = num + " is Negative";
+                result.style.color = "red";
+            } else {
+                result.textContent = num + " is Zero";
+                result.style.color = "blue";
+            }
+        });
+    </script>
+</body>
+</html>
