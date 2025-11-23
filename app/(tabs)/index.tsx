@@ -1,98 +1,162 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import {
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+export default function App() {
+  const events = [
+    {
+      id: 1,
+      title: "Hellbound Ride Night",
+      date: "January 22, 2025",
+      time: "7:00 PM",
+      venue: "Central Garage, KTM",
+    },
+    {
+      id: 2,
+      title: "Brotherhood Meet",
+      date: "January 25, 2025",
+      time: "5:00 PM",
+      venue: "MC Club House, Bhaktapur",
+    },
+    {
+      id: 3,
+      title: "Long Ride – Hetauda",
+      date: "February 02, 2025",
+      time: "6:00 AM",
+      venue: "Meeting Point: Kalanki",
+    },
+  ];
 
-export default function HomeScreen() {
+  const memberPass = () => {
+    Alert.alert("Members Pass", "Your pass is active!");
+  };
+
+  // ❌ Removed TypeScript type annotation
+  const openEvent = (title) => {
+    Alert.alert("Event Selected", `Opening details for ${title}`);
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Nise!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="light" />
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <Text style={styles.header}>🏴‍☠️ HELLOBOUND MC 🏴‍☠️</Text>
+      <Text style={styles.subHeader}>EVENTS & RIDES</Text>
+
+      {/* Members Pass Button */}
+      <TouchableOpacity style={styles.passButton} onPress={memberPass}>
+        <Text style={styles.passText}>🎟 MEMBERS PASS</Text>
+      </TouchableOpacity>
+
+      <ScrollView style={styles.scroll}>
+        {events.map((event) => (
+          <TouchableOpacity
+            key={event.id}
+            style={styles.card}
+            onPress={() => openEvent(event.title)}
+          >
+            <Text style={styles.cardTitle}>{event.title}</Text>
+
+            <View style={styles.infoRow}>
+              <Text style={styles.info}>📅 {event.date}</Text>
+              <Text style={styles.info}>⏰ {event.time}</Text>
+            </View>
+
+            <Text style={styles.venue}>📍 {event.venue}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+      <Text style={styles.footer}>Hellbound MC © 2025</Text>
+    </SafeAreaView>
   );
 }
 
+/* -------------------- STYLES -------------------- */
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#4405A4",
+    paddingTop: 20,
   },
-  stepContainer: {
-    gap: 8,
+
+  header: {
+    color: "white",
+    fontSize: 28,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+
+  subHeader: {
+    color: "#D5C4FF",
+    fontSize: 18,
+    textAlign: "center",
+    marginBottom: 15,
+  },
+
+  passButton: {
+    backgroundColor: "#6B00FF",
+    marginHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 15,
+  },
+
+  passText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
+  scroll: {
+    paddingHorizontal: 20,
+  },
+
+  card: {
+    backgroundColor: "#5B13CC",
+    padding: 15,
+    borderRadius: 12,
+    marginBottom: 15,
+    borderLeftWidth: 5,
+    borderLeftColor: "#FFD700",
+  },
+
+  cardTitle: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+
+  infoRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  info: {
+    color: "#E5D4FF",
+    fontSize: 15,
+  },
+
+  venue: {
+    color: "#F2E9FF",
+    fontSize: 15,
+    marginTop: 8,
+  },
+
+  footer: {
+    color: "#C9B8FF",
+    textAlign: "center",
+    padding: 10,
+    fontSize: 14,
   },
 });
